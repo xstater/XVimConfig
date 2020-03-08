@@ -16,7 +16,7 @@ let mapleader=','
 
 inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
-inoremap { {<CR>}<ESC>O
+inoremap {<CR> {<CR>}<ESC>O
 
 noremap <leader>wq :wq<CR>
 noremap <leader>qa :qall<CR>
