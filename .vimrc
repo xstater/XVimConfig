@@ -11,15 +11,31 @@ set ruler
 set encoding=utf-8
 set syntax=on
 set backspace=2
+set hlsearch incsearch
 
 let mapleader=','
 
+inoremap ' ''<ESC>i
+inoremap " ""<ESC>i
+inoremap ( ()<ESC>i
 inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 inoremap {<CR> {<CR>}<ESC>O
 
+noremap <leader>qq :q<CR>
 noremap <leader>wq :wq<CR>
+noremap <leader>ww :w<CR>
 noremap <leader>qa :qall<CR>
+noremap <leader>ev :vsplit ~/.vimrc<CR>
+noremap <leader>sv :source ~/.vimrc<CR>
+
+nnoremap <leader>" viw<ESC>a"<ESC>hbi"<ESC>lel
+nnoremap <leader>' viw<ESC>a'<ESC>hbi"<ESC>lel
+nnoremap <leader>( viw<ESC>a)<ESC>hbi(<ESC>lel
+nnoremap <leader>[ viw<ESC>a]<ESC>hbi[<ESC>lel
+nnoremap <leader>{ viw<ESC>a}<ESC>hbi{<ESC>lel
+
+nnoremap <leader>qc :cclose<CR>
 
 set nocompatible
 filetype off
@@ -37,12 +53,19 @@ call vundle#begin()
     Plugin 'skywind3000/asynctasks.vim'
     Plugin 'skywind3000/asyncrun.vim'
     Plugin 'junegunn/fzf'
+    Plugin 'junegunn/fzf.vim'
     Plugin 'terryma/vim-multiple-cursors'
+    Plugin 'eagletmt/neco-ghc'
 call vundle#end()
 filetype plugin on
 
 "You Complete Me
 let g:ycm_global_ycm_extra_config='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_key_invoke_completion='<c-z>'
+let g:ycm_semantic_triggers =  {
+			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+			\ 'cs,lua,javascript': ['re!\w{2}'],
+			\ 'haskell': ['re!\w{2}'] }
 
 " NERD Tree
 "autocmd vimenter * NERDTree "auto start NERDTree
@@ -109,3 +132,40 @@ let g:multi_cursor_use_default_mapping=1
 "   let g:multi_cursor_skip_key            = '<C-x>'
 "   let g:multi_cursor_quit_key            = '<Esc>'
 
+" Neo ghc
+let g:necoghc_enable_detailed_browse = 1
+
+" asynctask
+let g:asynctasks_extra_config = ['~/.config/asynctask/tasks.ini','~/.vim/tasks.ini']
+
+" AsyncTaskFzf
+function! s:fzf_sink(what)
+	let p1 = stridx(a:what, '<')
+	if p1 >= 0
+		let name = strpart(a:what, 0, p1)
+		let name = substitute(name, '^\s*\(.\{-}\)\s*$', '\1', '')
+		if name != ''
+			exec "AsyncTask ". fnameescape(name)
+		endif
+	endif
+endfunction
+
+function! s:fzf_task()
+	let rows = asynctasks#source(&columns * 48 / 100)
+	let source = []
+	for row in rows
+		let name = row[0]
+		let source += [name . '  ' . row[1] . '  : ' . row[2]]
+	endfor
+	let opts = { 'source': source, 'sink': function('s:fzf_sink'),
+				\ 'options': '+m --nth 1 --inline-info --tac' }
+	if exists('g:fzf_layout')
+		for key in keys(g:fzf_layout)
+			let opts[key] = deepcopy(g:fzf_layout[key])
+		endfor
+	endif
+	call fzf#run(opts)
+endfunction
+
+command! -nargs=0 AsyncTaskFzf call s:fzf_task()
+noremap <C-t> <ESC>:AsyncTaskFzf<CR>
