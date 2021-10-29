@@ -1,4 +1,6 @@
 function! xstatervim#before() abort
+    " NERD Tree
+    let g:NERDTreeMinimalUI = 1
     " transparent background
     autocmd ColorScheme * call s:transparent_background()
 
@@ -8,13 +10,15 @@ function! xstatervim#before() abort
     call SpaceVim#custom#SPCGroupName(['/'],'+Custom')
 
     " coc config
+    let g:coc_config_home = '$HOME/.SpaceVim.d'
     let g:coc_global_extensions = [
         \ 'coc-marketplace',
         \ 'coc-json', 
         \ 'coc-vimlsp', 
         \ 'coc-rust-analyzer',
         \ 'coc-calc',
-        \ 'coc-toml']
+        \ 'coc-toml',
+        \ 'coc-lightbulb']
 
     set hidden
     set updatetime=100

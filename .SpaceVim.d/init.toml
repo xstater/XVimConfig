@@ -39,7 +39,12 @@
     # checkers
     lint_on_the_fly = true
     # file tree
+    filemanager = "nerdtree"
     enable_filetree_gitstatus = true
+
+[[custom_plugins]]
+repo = "PhilRunninger/nerdtree-visual-selection"
+merged = false
 
 [[layers]]
 name = "colorscheme"
@@ -49,6 +54,7 @@ name = "fzf"
 
 [[layers]]
 name = "git"
+git_plugin = "gina"
 
 [[layers]]
 name = "VersionControl"
