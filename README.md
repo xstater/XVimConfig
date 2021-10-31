@@ -21,3 +21,4 @@ my SpaceVim configs
 
 # todo
 * add gtags support
+* wait for updating of SpaceVim to fix the function to show documents
