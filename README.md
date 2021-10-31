@@ -1,5 +1,5 @@
 # XVimConfig
-my vim with SpaceVim
+my SpaceVim configs
 
 # Layers or Plugins 
 * color scheme
