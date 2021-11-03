@@ -1,0 +1,7 @@
+{
+    // ale
+    "diagnostic.displayByAle": true,
+    // lightbulb
+    "lightbulb.enableVirtualText": true,
+    "lightbulb.virtualText": "?"
+}
