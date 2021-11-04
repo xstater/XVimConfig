@@ -278,6 +278,7 @@ let g:undotree_HelpLine = 0
 
 " Fugitive
 nnoremap <space>gg :Git<CR>
+nnoremap <space>gs :Git status<CR>
 nnoremap <space>gc :Git commit<CR>
 nnoremap <space>gp :Git push<CR>
 nnoremap <space>gd :Git diff<CR>
