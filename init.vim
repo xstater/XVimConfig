@@ -49,6 +49,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'preservim/nerdcommenter'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'sbdchd/neoformat'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'dense-analysis/ale'
@@ -59,6 +60,13 @@ Plug 'skywind3000/gutentags_plus'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'liuchengxu/vista.vim'
 Plug 'mbbill/undotree'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'Yggdroot/indentLine'
+Plug 'tpope/vim-surround'
+Plug 'justinmk/vim-sneak'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/asynctasks.vim'
+Plug 'zhyu/clap-tasks'
 call plug#end()
 "" Plug actions
 nnoremap <space>pu :PlugUpgrade<CR>:PlugUpdate<CR>
@@ -89,10 +97,10 @@ let g:lightline = {
     \ },
     \ 'active': {
         \ 'left': [ ['winnr'],
-        \           ['mode','paste'],
-        \           ['readonly','modified'] ],
-        \ 'right': [ ['percent','lineinfo'],
-        \            ['fileencoding','fileformat','filetype'],
+        \           ['mode', 'paste'],
+        \           ['readonly', 'modified'] ],
+        \ 'right': [ ['percent', 'lineinfo'],
+        \            ['fileencoding', 'filetype'],
         \            ['linter_checking','linter_errors','linter_warnings','linter_info','linter_ok']]
     \ },
     \ 'inactive': {
@@ -136,7 +144,7 @@ endfunction
 let g:lightline#bufferline#show_number = 2
 let g:lightline#bufferline#unnamed = '[no-name]'
 "" bufferline
-nmap <Leader>1 <Plug>lightline#bufferline#go(1)
+nmap <Leader>1 <Plug>lightline#bufferlide#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
 nmap <Leader>3 <Plug>lightline#bufferline#go(3)
 nmap <Leader>4 <Plug>lightline#bufferline#go(4)
@@ -154,7 +162,7 @@ nnoremap <leader>q :b #<CR>:bd #<CR>
 noremap <F2> :NERDTreeToggle<CR>
 "" Open NERDTree when Vim starts automatically
 autocmd VimEnter * NERDTree | wincmd p
-"" Close NERDTree when NERDTree is the last window automatically
+"" Close vim when NERDTree is the last window automatically
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 "" Hide tips <Press ? for help>
 let g:NERDTreeMinimalUI = 1
@@ -200,6 +208,10 @@ let g:ale_open_list = 1
 "" coc.nvim
 let g:ale_disable_lsp = 1
 
+" Neoformat
+nnoremap <space>lf :Neoformat<CR>
+vnoremap <space>lf :Neoformat<CR>
+
 " Gutentags
 let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = 'C:/Users/Admin/gtags/gtags.conf'
@@ -222,6 +234,7 @@ let g:gutentags_auto_add_gtags_cscope = 0
 let g:gutentags_plus_nomap = 1
 
 " vim-clap
+nnoremap <space>fa :Clap tasks<CR>
 nnoremap <space>fb :Clap buffers<CR>
 nnoremap <space>fcc :Clap command<CR>
 nnoremap <space>fch :Clap command_history<CR>
@@ -252,6 +265,17 @@ nnoremap <F3> :Vista!!<CR>
 nnoremap <F4> :UndotreeToggle<CR>
 let g:undotree_HelpLine = 0
 
+" vim multi cursor
+"" Some keymap description
+"" <C-N> select word
+"" <C-Up/Down> create cursor vertically
+"" <S-Arrors> select one character at a time
+"" <n/N> get next/previous occurrence
+"" <[/]> select next/previous cursor
+"" <q> skip current and get next occurrence
+"" <Q> remove current cursor/selection
+"" <i/a/I/A> start insert mode
+
 " Fugitive
 nnoremap <space>gg :Git<CR>
 nnoremap <space>gc :Git commit<CR>
@@ -260,11 +284,45 @@ nnoremap <space>gd :Git diff<CR>
 nnoremap <space>gf :Git fetch<CR>
 nnoremap <space>gm :Git merge<CR>
 
+" asyncrun.vim
+let g:quickfix_height = 8
+let g:asyncrun_open = g:quickfix_height
+"" toggle quickfix
+nnoremap <space>qf :call asyncrun#quickfix_toggle(g:quickfix_height)<CR>
+
+" asynctasks.vim
+
+
+" indent line
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+"" let colorscheme set the color of indent character
+let g:indentLine_setColors = 0
+
+" vim-surround
+"" Disable plugin key mappings
+let g:surround_no_mappings = 1
+"" key mappings
+nmap <space>sd <Plug>Dsurround
+nmap <space>sc <Plug>Csurround
+nmap <space>sC <Plug>CSurround
+nmap <space>sy <Plug>Ysurround
+nmap <space>sY <Plug>YSurround
+nmap <space>syy <Plug>Yssuround
+nmap <space>sYy <Plug>YSsuround
+nmap <space>sYY <Plug>YSsuround
+xmap <space>s <Plug>VSurround
+xmap <space>sg <Plug>VgSurround
+imap <c-g>s <Plug>Isurround
+imap <c-g>S <Plug>ISurround
+
 " copy & paste outside
 nnoremap <leader>c "+y
 vnoremap <leader>c "+y
 nnoremap <leader>v "+p
 vnoremap <leader>v "+p
+
+" fold
+set foldenable
 
 " window operations
 nnoremap <space>1 1<c-w><c-w>
