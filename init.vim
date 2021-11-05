@@ -103,7 +103,7 @@ let g:lightline = {
         \           ['readonly', 'modified'] ],
         \ 'right': [ ['percent', 'lineinfo'],
         \            ['fileencoding', 'filetype'],
-        \            ['linter_checking','linter_errors','linter_warnings','linter_info','linter_ok']]
+        \            ['linter_checking','linter_errors','linter_warnings','linter_info','linter_ok'] ]
     \ },
     \ 'inactive': {
         \ 'left': [ ['winnr'],['filename'] ],
@@ -140,6 +140,7 @@ let g:lightline = {
         \ 'buffers': 1
     \ }
 \ }
+
 function! LightlineReadonly() 
     return &readonly && &filetype !=# 'help' ? 'RO' : ''
 endfunction
@@ -200,10 +201,49 @@ let g:coc_global_extensions = [
             \ 'coc-calc',
             \ 'coc-toml',
             \ 'coc-lightbulb']
-nnoremap <silent> <space>ld :call CocActionAsync('doHover')<cr>
-"" Use <Tab> and <S-Tab> for navigate completion list                            
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"                        
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"" Use <Tab> and <S-Tab> for navigate completion list
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~# "\<C-h>"
+endfunction
+"" Use <CR> to confirm 
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
+    \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"" Navigate diagnostics
+nmap <silent> <space>lg[ <Plug>(coc-diagnostics-prev)
+nmap <silent> <space>lg] <Plug>(coc-diagnostics-next)
+"" Code navigation
+nmap <silent> <space>lgd <Plug>(coc-definition)
+nmap <silent> <space>lgy <Plug>(coc-type-definition)
+nmap <silent> <space>lgi <Plug>(coc-implementation)
+nmap <silent> <space>lgr <Plug>(coc-references)
+"" Symbol renaming
+nmap <space>lsr <Plug>(coc-rename)
+"" Code Action
+nmap <space>las <Plug>(coc-codeaction-selected)
+xmap <space>las <Plug>(coc-codeaction-selected)
+nmap <space>lac <Plug>(coc-codeaction-cursor)
+nmap <space>laa <Plug>(coc-codeaction)
+"" auto fix
+nmap <space>lqf <Plug>(coc-fix-current)
+"" Show documentations
+nnoremap <silent> <space>ld :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+    if (index(['vim','help'],&filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
+endfunction
+"" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " ALE
 "" dont use quickfix
