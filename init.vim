@@ -44,6 +44,7 @@ set mouse=a
 " Vim-Plug
 call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
 Plug 'joshdick/onedark.vim'
+" Plug 'mhinz/vim-startify'
 Plug 'ajmwagar/vim-deus'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -67,6 +68,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'zhyu/clap-tasks'
+Plug 'xstater/asynctasks-cargo.vim'
 call plug#end()
 "" Plug actions
 nnoremap <space>pu :PlugUpgrade<CR>:PlugUpdate<CR>
@@ -176,6 +178,8 @@ let g:NERTreeCustomOpenArgs = {
         \ 'keepopen' : 1,
         \ 'stay' : 1 },
     \ 'dir' : {} }
+"" Show hidden failed
+let g:NERDTreeShowHidden = 1
 
 " NERD git status
 let g:NERDTreeGitStatusUseNerdFonts = 1
@@ -292,7 +296,10 @@ let g:asyncrun_open = g:quickfix_height
 nnoremap <space>qf :call asyncrun#quickfix_toggle(g:quickfix_height)<CR>
 
 " asynctasks.vim
+let g:asynctasks_config_name = '.git/tasks.ini'
 
+" asynctasks-cargo.vim
+autocmd BufWrite * ASTasksCargoBuild
 
 " indent line
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -315,6 +322,9 @@ xmap <space>s <Plug>VSurround
 xmap <space>sg <Plug>VgSurround
 imap <c-g>s <Plug>Isurround
 imap <c-g>S <Plug>ISurround
+
+" open init.vim
+nnoremap <space>ie :e $XDG_CONFIG_HOME/nvim/init.vim<CR>
 
 " copy & paste outside
 nnoremap <leader>c "+y
