@@ -284,7 +284,7 @@ let g:undotree_HelpLine = 0
 nnoremap <space>gg :Git<CR>
 nnoremap <space>gs :Git status<CR>
 nnoremap <space>gc :Git commit<CR>
-nnoremap <space>gp :Git push<CR>
+nnoremap <space>gp :Git push --set-upstream origin master<CR>
 nnoremap <space>gd :Git diff<CR>
 nnoremap <space>gf :Git fetch<CR>
 nnoremap <space>gm :Git merge<CR>
