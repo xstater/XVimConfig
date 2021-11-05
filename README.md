@@ -55,4 +55,6 @@ XDG_DATA_HOME
 Download Universal-Ctags for win32 and add it to your path
 
 # todo
-* fix buffer control
+* Fix buffer control
+* Add support for start screen
+* Add key maping tips
