@@ -200,7 +200,8 @@ let g:coc_global_extensions = [
             \ 'coc-rust-analyzer',
             \ 'coc-calc',
             \ 'coc-toml',
-            \ 'coc-lightbulb']
+            \ 'coc-lightbulb',
+            \ 'coc-pairs']
 "" Use <Tab> and <S-Tab> for navigate completion list
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
@@ -249,8 +250,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 "" dont use quickfix
 let g:ale_set_loclist = 1
 let g:ale_open_list = 1
-"" coc.nvim
+"" Disable ALE LSP for coc.nvim
 let g:ale_disable_lsp = 1
+
 
 " Neoformat
 nnoremap <space>lf :Neoformat<CR>
