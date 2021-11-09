@@ -280,6 +280,13 @@ let g:gutentags_auto_add_gtags_cscope = 0
 let g:gutentags_plus_nomap = 1
 
 " vim-clap
+let g:clap_preview_direction = 'UD'
+let g:clap_preview_size = 2
+let g:clap_layout = {
+    \ 'relative': 'editor',
+    \ 'width': '80%',
+    \ 'col': '5%'}
+"" key mappings
 nnoremap <space>fa :Clap tasks<CR>
 nnoremap <space>fb :Clap buffers<CR>
 nnoremap <space>fcc :Clap command<CR>
@@ -290,8 +297,8 @@ nnoremap <space>fft :Clap filetypes<CR>
 nnoremap <space>fh :Clap help_tags<CR>
 nnoremap <space>fH :Clap history<CR>
 nnoremap <space>fj :Clap jumps<CR>
-nnoremap <space>fl :Clap loclist<CR>
-nnoremap <space>fL :Clap lines<CR>
+nnoremap <space>fL :Clap loclist<CR>
+nnoremap <space>fl :Clap lines<CR>
 nnoremap <space>fm :Clap marks<CR>
 nnoremap <space>fM :Clap maps<CR>
 nnoremap <space>fq :Clap quickfix<CR>
