@@ -228,8 +228,7 @@ nmap <space>lsr <Plug>(coc-rename)
 "" Code Action
 nmap <space>las <Plug>(coc-codeaction-selected)
 xmap <space>las <Plug>(coc-codeaction-selected)
-nmap <space>lac <Plug>(coc-codeaction-cursor)
-nmap <space>laa <Plug>(coc-codeaction)
+nmap <space>laa <Plug>(coc-codeaction-cursor)
 "" auto fix
 nmap <space>lqf <Plug>(coc-fix-current)
 "" Show documentations
