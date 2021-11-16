@@ -1,5 +1,8 @@
 {
-    // ale
+    // rust-analyzer
+    /// disable auto update
+    "rust-analyzer.updates.checkOnStartup": false,
+    /// ale: Display lint by ALE
     "diagnostic.displayByAle": true,
     // lightbulb
     "lightbulb.enableVirtualText": true,
