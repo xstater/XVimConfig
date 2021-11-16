@@ -163,6 +163,8 @@ nnoremap <leader>q :b #<CR>:bd #<CR>
 " NERD Tree
 "" Press F2 to toggle NERDTree
 noremap <F2> :NERDTreeToggle<CR>
+inoremap <F2> <ESC>:NERDTreeToggle<CR>
+vnoremap <F2> :NERDTreeToggle<CR>
 "" Open NERDTree when Vim starts automatically
 autocmd VimEnter * NERDTree | wincmd p
 "" Close vim when NERDTree is the last window automatically
