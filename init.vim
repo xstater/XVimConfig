@@ -41,8 +41,18 @@ endif
 " mouse support
 set mouse=a
 
+" Windows
+let g:is_windows=0
+if (has("win32") || has("win64") || has("win95") || has("win16"))
+    let g:is_windows = 1
+endif
+
 " Vim-Plug
-call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
+if g:is_windows
+    call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
+else
+    call plug#begin('$HOME/.config/nvim/plugged')
+endif
 Plug 'joshdick/onedark.vim'
 " Plug 'mhinz/vim-startify'
 Plug 'ajmwagar/vim-deus'
@@ -56,10 +66,12 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'dense-analysis/ale'
 Plug 'maximbaz/lightline-ale'
 Plug 'tpope/vim-fugitive'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-Plug 'liuchengxu/vista.vim'
+if g:is_windows
+    Plug 'liuchengxu/vista.vim'
+    Plug 'skywind3000/gutentags_plus'
+    Plug 'ludovicchabant/vim-gutentags'
+endif
 Plug 'mbbill/undotree'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'Yggdroot/indentLine'
@@ -195,7 +207,11 @@ nnoremap <space>lc :call nerdcommenter#Comment('n','Toggle')<CR>
 vnoremap <space>lc :call nerdcommenter#Comment('x','Toggle')<CR>
 
 " coc.nvim
-let g:coc_config_home = "$XDG_CONFIG_HOME/nvim"
+if g:is_windows
+    let g:coc_config_home = "$XDG_CONFIG_HOME/nvim"
+else
+    let g:coc_config_home = "$HOME/.config/nvim"
+endif
 let g:coc_global_extensions = [
             \ 'coc-json',
             \ 'coc-vimlsp',
@@ -260,25 +276,27 @@ nnoremap <space>lf :Neoformat<CR>
 vnoremap <space>lf :Neoformat<CR>
 
 " Gutentags
-let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = 'C:/Users/Admin/gtags/gtags.conf'
-let g:gutentags_project_root = ['.git', 'Cargo.toml', '.root']
-let g:gutentags_ctags_tagfile = '.tags'
-let g:gutentags_modules = []
-if executable('ctags')
-    let g:gutentags_modules += ['ctags']
+if g:is_windows
+    let $GTAGSLABEL = 'native-pygments'
+    let $GTAGSCONF = 'C:/Users/Admin/gtags/gtags.conf'
+    let g:gutentags_project_root = ['.git', 'Cargo.toml', '.root']
+    let g:gutentags_ctags_tagfile = '.tags'
+    let g:gutentags_modules = []
+    if executable('ctags')
+        let g:gutentags_modules += ['ctags']
+    endif
+    if executable('gtags-cscope') && executable('gtags')
+        let g:gutentags_modules += ['gtags_cscope']
+    endif
+    let g:gutentags_cache_dir = expand('$XDG_CONFIG_HOME/tags')
+    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+    let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+    let g:gutentags_auto_add_gtags_cscope = 0
+    "" gutentags plus
+    let g:gutentags_plus_nomap = 1
 endif
-if executable('gtags-cscope') && executable('gtags')
-    let g:gutentags_modules += ['gtags_cscope']
-endif
-let g:gutentags_cache_dir = expand('$XDG_CONFIG_HOME/tags')
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-let g:gutentags_auto_add_gtags_cscope = 0
-"" gutentags plus
-let g:gutentags_plus_nomap = 1
 
 " vim-clap
 let g:clap_preview_direction = 'UD'
@@ -312,8 +330,10 @@ nnoremap <space>fp :Clap providers<CR>
 nnoremap <space>fw :Clap windows<CR>
 
 " Vista.vim
-let g:vista_sidebar_position = 'vertical topleft'
-nnoremap <F3> :Vista!!<CR>
+if g:is_windows
+    let g:vista_sidebar_position = 'vertical topleft'
+    nnoremap <F3> :Vista!!<CR>
+endif
 
 " Undo tree
 nnoremap <F4> :UndotreeToggle<CR>
@@ -374,7 +394,11 @@ imap <c-g>s <Plug>Isurround
 imap <c-g>S <Plug>ISurround
 
 " open init.vim
-nnoremap <space>ie :e $XDG_CONFIG_HOME/nvim/init.vim<CR>
+if g:is_windows
+    nnoremap <space>ie :e $XDG_CONFIG_HOME/nvim/init.vim<CR>
+else
+    nnoremap <space>ie :e $HOME/.config/nvim/init.vim<CR>
+endif
 
 " copy & paste outside
 nnoremap <leader>c "+y
