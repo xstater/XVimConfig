@@ -242,7 +242,8 @@ nmap <silent> <space>lgy <Plug>(coc-type-definition)
 nmap <silent> <space>lgi <Plug>(coc-implementation)
 nmap <silent> <space>lgr <Plug>(coc-references)
 "" Symbol renaming
-nmap <space>lsr <Plug>(coc-rename)
+nmap <space>lrs <Plug>(coc-rename)
+nmap <space>lrf <Plug>(coc-refactor)
 "" Code Action
 nmap <space>las <Plug>(coc-codeaction-selected)
 xmap <space>las <Plug>(coc-codeaction-selected)
