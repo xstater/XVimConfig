@@ -33,6 +33,8 @@ filetype plugin on
 
 " Leader KEY = '\'
 " Leader KEY2 = '<space>'
+let g:mapleader = '\'
+let g:maplocalleader = "\<space>"
 
 if &compatible
     set nocompatible
@@ -67,6 +69,7 @@ Plug 'dense-analysis/ale'
 Plug 'maximbaz/lightline-ale'
 Plug 'tpope/vim-fugitive'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+Plug 'liuchengxu/vim-which-key'
 if g:is_windows
     Plug 'liuchengxu/vista.vim'
     Plug 'skywind3000/gutentags_plus'
@@ -82,8 +85,25 @@ Plug 'skywind3000/asynctasks.vim'
 Plug 'zhyu/clap-tasks'
 Plug 'xstater/asynctasks-cargo.vim'
 call plug#end()
-"" Plug actions
-nnoremap <space>pu :PlugUpgrade<CR>:PlugUpdate<CR>
+
+" vim-which-key
+let g:which_key_space = {}
+let g:which_key_space['name'] = 'space'
+let g:which_key_space.l = {'name': "+language"}
+let g:which_key_leader = {}
+let g:which_key_leader['name'] = 'leader'
+"" hide theme
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+"" ignore some key
+let g:which_key_leader['\'] = { 'name': 'which_key_ignore' }
+"" registers
+call which_key#register('<space>',"g:which_key_space")
+call which_key#register('\\',"g:which_key_leader")
+"" keymapping
+nnoremap <silent> <space> :<c-u>WhichKey '<space>'<CR>
+nnoremap <silent> <leader> :<c-u>WhichKey '\\'<CR>
 
 " colorscheme
 "" transparent background
@@ -159,18 +179,26 @@ endfunction
 let g:lightline#bufferline#show_number = 2
 let g:lightline#bufferline#unnamed = '[no-name]'
 "" bufferline
-nmap <Leader>1 <Plug>lightline#bufferlide#go(1)
-nmap <Leader>2 <Plug>lightline#bufferline#go(2)
-nmap <Leader>3 <Plug>lightline#bufferline#go(3)
-nmap <Leader>4 <Plug>lightline#bufferline#go(4)
-nmap <Leader>5 <Plug>lightline#bufferline#go(5)
-nmap <Leader>6 <Plug>lightline#bufferline#go(6)
-nmap <Leader>7 <Plug>lightline#bufferline#go(7)
-nmap <Leader>8 <Plug>lightline#bufferline#go(8)
-nmap <Leader>9 <Plug>lightline#bufferline#go(9)
+nmap <leader>1 <Plug>lightline#bufferlide#go(1)
+nmap <leader>2 <Plug>lightline#bufferline#go(2)
+nmap <leader>3 <Plug>lightline#bufferline#go(3)
+nmap <leader>4 <Plug>lightline#bufferline#go(4)
+nmap <leader>5 <Plug>lightline#bufferline#go(5)
+nmap <leader>6 <Plug>lightline#bufferline#go(6)
+nmap <leader>7 <Plug>lightline#bufferline#go(7)
+nmap <leader>8 <Plug>lightline#bufferline#go(8)
+nmap <leader>9 <Plug>lightline#bufferline#go(9)
 nnoremap <leader>[ :bprev<CR>
 nnoremap <leader>] :bnext<CR>
 nnoremap <leader>q :b #<CR>:bd #<CR>
+"" for vim-which-key
+for s:i in range(1,9)
+    let g:which_key_leader[s:i] = 'buffer-'.s:i
+endfor
+unlet s:i
+let g:which_key_leader['['] = "previous buffer"
+let g:which_key_leader[']'] = "next buffer"
+let g:which_key_leader['q'] = "quit buffer"
 
 " NERD Tree
 "" Press F2 to toggle NERDTree
@@ -205,6 +233,9 @@ let g:NERDCreateDefaultMappings = 0
 let g:NERDSpaceDelims = 1
 nnoremap <space>lc :call nerdcommenter#Comment('n','Toggle')<CR>
 vnoremap <space>lc :call nerdcommenter#Comment('x','Toggle')<CR>
+"" for vim-which-key
+let g:which_key_space.l = { 'name' : '+language' }
+let g:which_key_space.l.c = 'Comment line'
 
 " coc.nvim
 if g:is_windows
@@ -238,7 +269,7 @@ nmap <silent> <space>lg[ <Plug>(coc-diagnostics-prev)
 nmap <silent> <space>lg] <Plug>(coc-diagnostics-next)
 "" Code navigation
 nmap <silent> <space>lgd <Plug>(coc-definition)
-nmap <silent> <space>lgy <Plug>(coc-type-definition)
+nmap <silent> <space>lgt <Plug>(coc-type-definition)
 nmap <silent> <space>lgi <Plug>(coc-implementation)
 nmap <silent> <space>lgr <Plug>(coc-references)
 "" Symbol renaming
@@ -263,6 +294,31 @@ function! s:show_documentation()
 endfunction
 "" Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
+"" for vim-which-key
+let g:which_key_space.l.g = {
+        \ 'name' : "+goto",
+        \ '[' : "goto previous diagnostics",
+        \ ']' : "goto next diagnostics",
+        \ 'd' : "goto definition",
+        \ 't' : "goto type definition",
+        \ 'i' : "goto implementation",
+        \ 'r' : "goto references",
+      \ }
+let g:which_key_space.l.r = {
+        \ 'name' : "+refactor",
+        \ 's' : "rename symbol",
+        \ 'f' : "refactor menu"
+      \ }
+let g:which_key_space.l.a = {
+        \ 'name' : "+code-action",
+        \ 's' : "execute codeaction in selected",
+        \ 'a' : "execute codeaction in cursor"
+      \ }
+let g:which_key_space.l.q = {
+        \ 'name' : "+quickfix",
+        \ 'f' : "execute current quickfix"
+      \ } 
+let g:which_key_space.l.d = "show documentations"
 
 " ALE
 "" dont use quickfix
@@ -275,6 +331,8 @@ let g:ale_disable_lsp = 1
 " Neoformat
 nnoremap <space>lf :Neoformat<CR>
 vnoremap <space>lf :Neoformat<CR>
+"" for vim-which-key
+let g:which_key_space.l.f = "format code"
 
 " Gutentags
 if g:is_windows
@@ -311,7 +369,7 @@ nnoremap <space>fa :Clap tasks<CR>
 nnoremap <space>fb :Clap buffers<CR>
 nnoremap <space>fcc :Clap command<CR>
 nnoremap <space>fch :Clap command_history<CR>
-nnoremap <space>fsh :Clap search_history<CR>
+nnoremap <space>fs :Clap search_history<CR>
 nnoremap <space>fff :Clap files<CR>
 nnoremap <space>fft :Clap filetypes<CR>
 nnoremap <space>fh :Clap help_tags<CR>
@@ -329,6 +387,38 @@ nnoremap <space>ft :Clap tags<CR>
 nnoremap <space>fT :Clap proj_tags<CR>
 nnoremap <space>fp :Clap providers<CR>
 nnoremap <space>fw :Clap windows<CR>
+"" for vim-which-key
+let g:which_key_space.f = {
+        \ 'name' : "+fuzzy_find",
+        \ 'a' : "find tasks",
+        \ 'b' : "find buffers",
+        \ 'c' : {
+            \ 'name' : "+find_commands",
+            \ 'c' : "find commands",
+            \ 'h' : "find history commands"
+        \ },
+        \ 's' : "find search history",
+        \ 'f' : {
+            \ 'name' : "+find_files",
+            \ 'f' : "find files",
+            \ 't' : "find file types"
+        \ },
+        \ 'h' : "find help tags",
+        \ 'H' : "find history",
+        \ 'j' : "find jumps",
+        \ 'L' : "find loclist",
+        \ 'l' : "find lines",
+        \ 'm' : "find marks",
+        \ 'M' : "find Maps",
+        \ 'q' : "find quickfix",
+        \ 'y' : "find yanks",
+        \ 'r' : "find recent files",
+        \ 'R' : "find registers",
+        \ 't' : "find tags",
+        \ 'T' : "find tags in project",
+        \ 'p' : "find providers",
+        \ 'w' : "find windows"
+      \ }
 
 " Vista.vim
 if g:is_windows
@@ -359,12 +449,29 @@ nnoremap <space>gp :Git push --set-upstream origin master<CR>
 nnoremap <space>gd :Git diff<CR>
 nnoremap <space>gf :Git fetch<CR>
 nnoremap <space>gm :Git merge<CR>
+"" for vim-which-key
+let g:which_key_space.g = {
+        \ 'name' : "+git",
+        \ 'g' : "open git menu",
+        \ 's' : "show git status",
+        \ 'c' : "commit",
+        \ 'p' : "push",
+        \ 'd' : "show git diff",
+        \ 'f' : "fetch",
+        \ 'm' : "merge"
+      \ }
+
 
 " asyncrun.vim
 let g:quickfix_height = 8
 let g:asyncrun_open = g:quickfix_height
 "" toggle quickfix
 nnoremap <space>qf :call asyncrun#quickfix_toggle(g:quickfix_height)<CR>
+"" for vim-which-key
+let g:which_key_space.q = {
+        \ 'name' : "+quit/+quickfix",
+        \ 'f' : "toggle quickfix"
+      \ }
 
 " asynctasks.vim
 let g:asynctasks_config_name = '.git/tasks.ini'
@@ -393,19 +500,34 @@ xmap <space>s <Plug>VSurround
 xmap <space>sg <Plug>VgSurround
 imap <c-g>s <Plug>Isurround
 imap <c-g>S <Plug>ISurround
+"" for vim-which-key
+let g:which_key_space.s = {
+        \ 'name' : "+surround",
+        \ 'd' : "delete surround"
+      \ }
 
 " open init.vim
 if g:is_windows
     nnoremap <space>ie :e $XDG_CONFIG_HOME/nvim/init.vim<CR>
+    nnoremap <space>is :source $XDG_CONFIG_HOME/nvim/init.vim<CR>
 else
     nnoremap <space>ie :e $HOME/.config/nvim/init.vim<CR>
+    nnoremap <space>is :source $HOME/.config/nvim/init.vim<CR>
 endif
+let g:which_key_space.i = {
+        \ 'name' : "+init.vim",
+        \ 'e' : "edit init.vim",
+        \ 's' : "source init.vim"
+      \ }
 
 " copy & paste outside
 nnoremap <leader>c "+y
 vnoremap <leader>c "+y
 nnoremap <leader>v "+p
 vnoremap <leader>v "+p
+"" for vim-which-key
+let g:which_key_leader['c'] = "Copy to system clipboard"
+let g:which_key_leader['v'] = "Paste from system clipboard"
 
 " fold
 set foldenable
@@ -427,12 +549,43 @@ nnoremap <space>w<right> <c-w><right>
 nnoremap <space>w<left> <c-w><left>
 nnoremap <space>w<up> <c-w><up>
 nnoremap <space>w<down> <c-w><down>
+"" for vim-which-key
+for s:i in range(1,9)
+    let g:which_key_space[s:i] = 'window-'.s:i
+endfor
+unlet s:i
+let g:which_key_space.w = {
+        \ 'name' : "+window",
+        \ 'c' : "close current window",
+        \ 'q' : "quit current window",
+        \ 'o' : "close other windows",
+        \ 'Left' : "move to left window",
+        \ 'Right' : "move to right window",
+        \ 'Up' : "move to up window",
+        \ 'Down' : "move to down window"
+      \ }
 
 " save buffer
-nnoremap <space>s :w<CR>
+nnoremap <space>ss :w<CR>
+"" for vim-which-key
+let g:which_key_space.s = {
+        \ 'name' : "+save",
+        \ 's' : "save current buffer"
+      \ }
 
 " quit
 nnoremap <space>qq :q<CR>
 nnoremap <space>qa :qa<CR>
 nnoremap <space>qp :q!<CR>
+"" for vim-whick-key
+let g:which_key_space.q.q = "fast quit"
+let g:which_key_space.q.a = "quit all"
+let g:which_key_space.q.p = "force quit"
 
+" Plug actions
+nnoremap <space>pu :PlugUpgrade<CR>:PlugUpdate<CR>
+"" for vim-which-key
+let g:which_key_space.p = {
+        \ 'name' : "+upgrade plugins",
+        \ 'u' : "upgrade all plugins"
+      \ }
