@@ -18,6 +18,7 @@ tpope/vim-fugitive
 ludovicchabant/vim-gutentags
 skywind3000/gutentags_plus
 liuchengxu/vim-clap
+liuchengxu/vim-which-key
 liuchengxu/vista.vim
 mbbill/undotree
 mg979/vim-visual-multi
@@ -57,4 +58,3 @@ Download Universal-Ctags for win32 and add it to your path
 # todo
 * Fix buffer control
 * Add support for start screen
-* Add key maping tips
