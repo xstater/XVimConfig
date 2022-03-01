@@ -475,6 +475,7 @@ let g:which_key_space.q = {
 
 " asynctasks.vim
 let g:asynctasks_config_name = '.git/tasks.ini'
+let g:asynctasks_term_pos = 'tab'
 
 " asynctasks-cargo.vim
 autocmd BufWrite * ASTasksCargoBuild
@@ -528,6 +529,9 @@ vnoremap <leader>v "+p
 "" for vim-which-key
 let g:which_key_leader['c'] = "Copy to system clipboard"
 let g:which_key_leader['v'] = "Paste from system clipboard"
+
+" Ctrl-C ESC
+imap <C-C> <ESC>
 
 " fold
 set foldenable
