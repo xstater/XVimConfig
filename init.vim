@@ -475,7 +475,7 @@ let g:which_key_space.q = {
 
 " asynctasks.vim
 let g:asynctasks_config_name = '.git/tasks.ini'
-let g:asynctasks_term_pos = 'tab'
+let g:asynctasks_term_pos = 'bottom'
 
 " asynctasks-cargo.vim
 autocmd BufWrite * ASTasksCargoBuild
