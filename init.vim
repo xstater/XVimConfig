@@ -531,7 +531,8 @@ let g:which_key_leader['c'] = "Copy to system clipboard"
 let g:which_key_leader['v'] = "Paste from system clipboard"
 
 " Ctrl-C ESC
-imap <C-C> <ESC>
+inoremap <C-C> <ESC>
+vnoremap <C-C> <ESC>
 
 " fold
 set foldenable
