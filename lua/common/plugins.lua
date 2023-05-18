@@ -1,20 +1,16 @@
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
 
-return require('packer').startup(function(use) 
-    use 'wbthomason/packer.nvim'
-
-    use {
-        'phaazon/hop.nvim',
-        branch = 'v2',
-        -- unused , don't know why
-        config = function()
-            print "asdasd"
-            require 'hop'.setup {
-                keys = 'ghfjdksla;tyrueiwoqpbnvmcz'
-            }
-        end
-    }
-
-    -- for vscode only
-    if vim.g.vscode then
-    end
-end)
+require 'lazy'.setup({
+    { 'phaazon/hop.nvim', branch = 'v2' }
+})

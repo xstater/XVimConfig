@@ -1,8 +1,6 @@
 vim.g.vscode = true
 
-require "common.plugins"
-require "common.options"
-require "common.keymaps"
+require 'common'
 
 local sys_name = vim.loop.os_uname().sysname
 
