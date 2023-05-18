@@ -12,5 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require 'lazy'.setup({
-    { 'phaazon/hop.nvim', branch = 'v2' }
+    { 'phaazon/hop.nvim', branch = 'v2' },
+    { 'rlane/pounce.nvim' }
 })
