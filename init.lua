@@ -1,6 +1,6 @@
 vim.g.vscode = true
 
-require 'common'
+require 'init_lazy'
 
 local sys_name = vim.loop.os_uname().sysname
 
