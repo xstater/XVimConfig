@@ -53,8 +53,50 @@ require 'lazy'.setup({
         'nvim-telescope/telescope.nvim',
         tag = '0.1.5',
         dependencies = { 'nvim-lua/plenary.nvim' },
-        config = function ()
+        config = function()
             require 'normal.plugins.telescope'
         end
-    }
+    },
+    {
+        'hrsh7th/nvim-cmp',
+        config = function()
+            require 'normal.plugins.cmp'
+        end
+    },
+    {
+        'hrsh7th/cmp-path',
+        dependencies = { 'hrsh7th/nvim-cmp' },
+    },
+    {
+        'hrsh7th/cmp-calc',
+        dependencies = { 'hrsh7th/nvim-cmp' }
+    },
+    {
+        'hrsh7th/cmp-buffer',
+        dependencies = { 'hrsh7th/nvim-cmp' }
+    },
+    {
+        'hrsh7th/cmp-cmdline',
+        dependencies = { 'hrsh7th/nvim-cmp' }
+    },
+    {
+        'hrsh7th/cmp-nvim-lua',
+        dependencies = { 'hrsh7th/nvim-cmp' }
+    },
+    {
+        'neovim/nvim-lspconfig',
+        config = function()
+            require 'normal.plugins.lsp'
+        end
+    },
+    {
+        'hrsh7th/cmp-nvim-lsp',
+        dependencies = {
+            'hrsh7th/nvim-cmp',
+            'neovim/nvim-lspconfig'
+        },
+        config = function()
+            require 'normal.plugins.cmp_lsp'
+        end
+    },
 })
