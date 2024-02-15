@@ -46,7 +46,7 @@ require 'lazy'.setup({
         'phaazon/hop.nvim',
         branch = 'v2',
         config = function()
-            require 'normal.plugins.hop'
+            require 'normal.plugins.hop_cfg'
         end
     },
     {
