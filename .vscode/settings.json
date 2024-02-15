@@ -1,5 +1,9 @@
 {
     "Lua.diagnostics.globals": [
         "vim"
+    ],
+    "cSpell.words": [
+        "neovim",
+        "nvim"
     ]
 }

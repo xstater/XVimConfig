@@ -1,5 +1,5 @@
 require 'hop'.setup {
-    keys = 'etovxqpdygfblzhckisuran'
+    keys = 'fdsarewqcxztgvhjklyuiobnmp'
 }
 
 require 'which-key'.register(
