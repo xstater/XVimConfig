@@ -13,13 +13,10 @@
 - lsp目前并未正确配置
 - 配色使用[TokyoNight-Night](https://github.com/folke/tokyonight.nvim)
 - **todo**
-    - 跳转插件考虑更换为[flash.nvim](https://github.com/folke/flash.nvim)
     - 补全器考虑增加五笔补全并添加切换开关
     - 正确配置lsp
 
 ### VScode配置
 - Neovim可以在WSL中安装以简化配置流程
 - Windows中Neovim需要正确配置Home目录
-- 目前只添加了[Hop.nvim](https://github.com/phaazon/hop.nvim)(该插件已废弃)用于快速的光标跳转，其余功能由vscode插件提供
-- **todo**
-    - 跳转插件考虑更换为[flash.nvim](https://github.com/folke/flash.nvim)
+- 目前只添加了[Hop.nvim](https://github.com/phaazon/hop.nvim)用于快速的光标跳转，其余功能由vscode插件提供
