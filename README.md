@@ -19,4 +19,5 @@
 ### VScode配置
 - Neovim可以在WSL中安装以简化配置流程
 - Windows中Neovim需要正确配置Home目录
+- 需要先在init.lua中设置`vim.g.vscode = true`并启动一次Neovim下载插件
 - 目前只添加了[Hop.nvim](https://github.com/phaazon/hop.nvim)用于快速的光标跳转，其余功能由vscode插件提供
