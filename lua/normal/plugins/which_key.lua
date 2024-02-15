@@ -6,6 +6,7 @@ which_key.register(
         b = { name = "+Buffer" },
         e = { name = "+Easy Motions" },
         f = { name = "+Fuzzy/+Files" },
+        g = { name = "+Git" },
         l = { name = "+Language(Not Complete)" },
         q = { name = "+Quit" },
         s = { name = "+Save" },

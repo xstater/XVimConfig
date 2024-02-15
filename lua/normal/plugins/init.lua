@@ -58,6 +58,10 @@ require 'lazy'.setup({
         end
     },
     {
+        'akinsho/toggleterm.nvim',
+        version = "*"
+    },
+    {
         'hrsh7th/nvim-cmp',
         config = function()
             require 'normal.plugins.cmp'
