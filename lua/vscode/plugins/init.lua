@@ -1,5 +1,7 @@
 require 'lazy'.setup({
-    { 'phaazon/hop.nvim', branch = 'v2' },
+    'smoka7/hop.nvim',
+    version = "*",
+    config = function()
+        require 'vscode.plugins.hop_cfg'
+    end
 })
-
-require 'vscode/plugins/hop_cfg'
