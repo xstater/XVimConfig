@@ -5,13 +5,12 @@ local gitui = terminal:new {
     hidden = true
 }
 
-function gitui_toggle()
+function GitUIToggle()
     gitui:toggle()
 end
 
-require 'which-key'.register({
-    ["gg"] = { "<cmd>lua gitui_toggle()<CR>", "Open GitUI" },
-}, {
-    mode = "n",
-    prefix = "<leader>"
-})
+require 'which-key'.add(
+    {
+        { "<leader>gg", "<cmd>lua GitUIToggle()<CR>", desc = "Open GitUI" },
+    }
+)

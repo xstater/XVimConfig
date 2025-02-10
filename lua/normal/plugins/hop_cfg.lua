@@ -2,14 +2,11 @@ require 'hop'.setup {
     keys = 'fdsarewqcxztgvhjklyuiobnmp'
 }
 
-require 'which-key'.register(
+require 'which-key'.add(
     {
-        ["ea"] = { "<cmd>HopAnywhere<CR>", "Move to Anywhere" },
-        ["ew"] = { "<cmd>HopWord<CR>", "Move to any Word" },
-        ["el"] = { "<cmd>HopLine<CR>", "Move to any Line" },
-        ["ec"] = { "<cmd>HopChar2<CR>", "Move to 2 characters" },
-    },
-    {
-        mode = "n",
-        prefix = "<leader>"
-    })
+        { "<leader>ea", "<cmd>HopAnywhere<CR>", desc = "Move to Anywhere" },
+        { "<leader>ew", "<cmd>HopWord<CR>",     desc = "Move to any Word" },
+        { "<leader>ec", "<cmd>HopChar2<CR>",    desc = "Move to 2 characters" },
+        { "<leader>el", "<cmd>HopLine<CR>",     desc = "Move to any Line" },
+    }
+)

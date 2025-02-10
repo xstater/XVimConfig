@@ -1,14 +1,11 @@
 local picker = require 'telescope.builtin'
 
-require 'which-key'.register(
+require 'which-key'.add(
     {
-        ["ff"] = { picker.find_files, "Find files" },
-        ["fb"] = { picker.buffers, "Find buffers" },
-        ["fc"] = { picker.commands , "Find commands" },
-        ["fq"] = { picker.quickfix , "Find quickfix" },
-        ["fl"] = { picker.current_buffer_fuzzy_find , "Find lines in current buffer" },
-    },
-    {
-        mode = "n",
-        prefix = "<leader>"
-    })
+        { "<leader>fb", picker.buffers, desc = "Find buffers" },
+        { "<leader>fc", picker.commands, desc = "Find commands" },
+        { "<leader>ff", picker.find_files, desc = "Find files" },
+        { "<leader>fl", picker.current_buffer_fuzzy_find, desc = "Find lines in current buffer" },
+        { "<leader>fq", picker.quickfix, desc = "Find quickfix" },
+      }
+)

@@ -1,10 +1,9 @@
-require 'which-key'.register({
-    ["qa"] = { ":qa<CR>", "Quit all" },
-    ["qA"] = { ":qa!<CR>", "Quit all (Force)" },
-    ["qq"] = { ":q<CR>", "Quit current" },
-    ["qQ"] = { ":q!<CR>", "Quit current (Force)" },
-    ["qw"] = { ":wq<CR>", "Quit and Save" },
-}, {
-    mode = "n",
-    prefix = "<leader>"
-})
+require 'which-key'.add(
+    {
+        { "<leader>qA", ":qa!<CR>", desc = "Quit all (Force)" },
+        { "<leader>qQ", ":q!<CR>",  desc = "Quit current (Force)" },
+        { "<leader>qa", ":qa<CR>",  desc = "Quit all" },
+        { "<leader>qq", ":q<CR>",   desc = "Quit current" },
+        { "<leader>qw", ":wq<CR>",  desc = "Quit and Save" },
+    }
+)

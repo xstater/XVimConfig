@@ -1,7 +1,6 @@
-require 'which-key'.register({
-    ["ss"] = { ":w<CR>", "Save current buffer" },
-    ["sS"] = { ":wa<CR>", "Save all buffers" },
-}, {
-    mode = "n",
-    prefix = "<leader>"
-})
+require 'which-key'.add(
+    {
+        { "<leader>sS", ":wa<CR>", desc = "Save all buffers" },
+        { "<leader>ss", ":w<CR>",  desc = "Save current buffer" },
+    }
+)

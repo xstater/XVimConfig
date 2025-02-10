@@ -4,11 +4,8 @@ require 'nvim-tree'.setup {
     }
 }
 
-require 'which-key'.register(
+require 'which-key'.add(
     {
-        ["ft"] = { "<cmd>NvimTreeToggle<CR>", "Toggle file tree" }
-    },
-    {
-        mode = "n",
-        prefix = "<leader>"
-    })
+        { "<leader>ft", "<cmd>NvimTreeToggle<CR>", desc = "Toggle file tree" },
+    }
+)
