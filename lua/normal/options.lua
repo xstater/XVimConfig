@@ -24,3 +24,5 @@ vim.opt.termguicolors = true
 vim.opt.hidden = true
 vim.opt.updatetime = 100
 vim.opt.timeoutlen = 500
+vim.opt.mouse = 'a'
+vim.opt.mousemodel = 'extend'

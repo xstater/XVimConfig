@@ -9,9 +9,6 @@ function gitui_toggle()
     gitui:toggle()
 end
 
-require 'which-key'.register({
-    ["gg"] = { "<cmd>lua gitui_toggle()<CR>", "Open GitUI" },
-}, {
-    mode = "n",
-    prefix = "<leader>"
+require 'which-key'.add({
+    { "<leader>gg", "<cmd>lua gitui_toggle()<CR>", desc = "Open GitUI" },
 })
