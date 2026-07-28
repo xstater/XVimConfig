@@ -12,26 +12,6 @@ require 'which-key'.add(
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
-        require 'which-key'.register({
-            ["lr"] = { vim.lsp.rename, "Rename" },
-            ["la"] = { vim.lsp.buf.code_action, "Execute code action" },
-            ["lf"] = {
-                function()
-                    vim.lsp.buf.format { async = true }
-                end,
-                "Format code" },
-        }, {
-            mode = "n",
-            prefix = "<leader>",
-            buffer = ev.buf
-        })
-
-        require 'which-key'.register({
-            ["la"] = { vim.lsp.buf.code_action, "Execute code action" },
-        }, {
-            mode = "v",
-            prefix = "<leader>",
-            buffer = ev.buf
-        })
+        -- todo : add new keymaps
     end
 })
